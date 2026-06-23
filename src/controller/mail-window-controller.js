@@ -109,8 +109,9 @@ class MailWindowController {
 
     const isDev = process.env.NODE_ENV === "development" || !app.isPackaged;
 
-    // Open DevTools in development mode
-    if (isDev) {
+    // Open DevTools only when explicitly requested (OUTLOOK_DEVTOOLS=1),
+    // otherwise running unpackaged from source would open it on every launch.
+    if (isDev && process.env.OUTLOOK_DEVTOOLS === "1") {
       this.win.webContents.openDevTools();
     }
 
